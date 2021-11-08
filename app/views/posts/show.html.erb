@@ -10,8 +10,18 @@
   <%= @post.content %>
 </p>
 
+<p>
+  <strong>Tags:</strong>
+  <% @post.tags.each do |tag| %>
+    <p>
+    <%= tag.name %>
+    </p>
+  <%end%>
+</p>
+
 
 <%= render 'comments/form' %>
+<%= render 'tags/form' %>
 <%= render 'comments/comment' %>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

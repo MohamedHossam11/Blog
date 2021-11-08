@@ -9,9 +9,9 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
-    logger.debug @post.user_id
     @comment = Comment.new
     @comments = @post.comments
+    @tags = @post.tags
   end
 
   # GET /posts/new
@@ -25,10 +25,15 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = Post.new(post_params)
+    @post = Post.new(title: post_params[:title], content: post_params[:content])
     @post.user_id = current_user.id
+    @tag = Tag.new(name: post_params[:tag])
+    @tag.save
     respond_to do |format|
       if @post.save
+        @post_tag = PostTag.new(post_id:@post.id, tag_id: @tag.id)
+        @post_tag.save
+        DeletePostJob.set(wait: 24.hours).perform_later(@post.id)
         format.html { redirect_to @post, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
@@ -80,6 +85,9 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :user_id)
+        params.require(:post).permit(:title, :content, :tag, :user_id)
+    end
+    def tag_params
+      params.require(:tag).permit(:name)
     end
 end

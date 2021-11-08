@@ -1,0 +1,7 @@
+<%= form_with(model: @tag, url: [@tag,@post]) do |form| %>
+  <div class="field">
+    <%= form.label 'Tag name' %>
+    <%= form.text_field :name %>
+  </div>
+
+<% end %>

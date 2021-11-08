@@ -20,6 +20,18 @@
     <%= form.label :content %>
     <%= form.text_area :content %>
   </div>
+  
+  <div class="field">
+    <%= form.label :tag %>
+    <%= form.text_area :tag %>
+  </div>
+
+<%
+=begin%>
+ <%= render 'tags/form' %> 
+<%
+=end%>
+
 
   <div class="actions">
     <%= form.submit %>
