@@ -33,7 +33,7 @@ class PostsController < ApplicationController
       if @post.save
         @post_tag = PostTag.new(post_id:@post.id, tag_id: @tag.id)
         @post_tag.save
-        DeletePostJob.set(wait: 24.hours).perform_later(@post.id)
+        DeletePostJob.set(wait: 60.seconds).perform_later(@post.id)
         format.html { redirect_to @post, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
