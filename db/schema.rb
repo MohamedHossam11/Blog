@@ -12,17 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2021_11_08_092405) do
 
-  create_table "comments", charset: "utf8mb3", force: :cascade do |t|
+  create_table "comments", charset: "utf8mb4", force: :cascade do |t|
     t.text "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "post_id", null: false
+    t.bigint "post_id"
     t.bigint "user_id", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "post_tags", charset: "utf8mb3", force: :cascade do |t|
+  create_table "post_tags", charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "post_id", null: false
@@ -31,22 +31,22 @@ ActiveRecord::Schema.define(version: 2021_11_08_092405) do
     t.index ["tag_id"], name: "index_post_tags_on_tag_id"
   end
 
-  create_table "posts", charset: "utf8mb3", force: :cascade do |t|
+  create_table "posts", charset: "utf8mb4", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "tags", charset: "utf8mb3", force: :cascade do |t|
+  create_table "tags", charset: "utf8mb4", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
   end
 
-  create_table "users", charset: "utf8mb3", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
